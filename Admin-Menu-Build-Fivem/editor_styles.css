@@ -1,0 +1,646 @@
+/* editor_styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #282c34;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.editor-panel {
+    flex: 1;
+    max-width: 750px;
+    background-color: #3c4149;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.preview-panel {
+    width: 320px;
+    height: 550px; /* Taille fixe pour l'aperçu */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+}
+
+.preview-panel h2 {
+    margin-top: 0;
+    color: #61dafb;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#previewIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    pointer-events: none; /* Désactive les clics sur l'iframe par défaut */
+}
+
+#previewIframe.interactive {
+    pointer-events: auto; /* Active les clics quand le mode interactif est actif */
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    z-index: 10; /* Au-dessus de l'iframe quand il est visible */
+    pointer-events: none; /* L'overlay ne doit pas bloquer les événements de souris */
+}
+.preview-overlay p {
+    margin: 5px 0;
+    color: #61dafb;
+}
+
+h1 {
+    color: #61dafb;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.editor-section {
+    background-color: #4a5059;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.editor-section h2 {
+    color: #61dafb;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.editor-section h3 {
+    color: #f8f8f2;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="color"],
+select,
+textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    background-color: #21252b;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #f8f8f2;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="range"] {
+    width: calc(100% - 22px);
+    -webkit-appearance: none;
+    background: #555;
+    height: 8px;
+    border-radius: 5px;
+    outline: none;
+    margin-top: 10px;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #61dafb;
+    cursor: pointer;
+    border: 2px solid #282c34;
+}
+input[type="range"] + span {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #f8f8f2;
+}
+
+input[type="checkbox"] {
+    margin-top: 8px;
+    width: auto;
+}
+
+small {
+    display: block;
+    font-size: 0.8em;
+    color: #a0a0a0;
+    margin-top: 5px;
+}
+small a {
+    color: #61dafb;
+    text-decoration: none;
+}
+small a:hover {
+    text-decoration: underline;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    background-color: #61dafb;
+    color: #282c34;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-right: 8px;
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button i {
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #21a1f1;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button.export {
+    background-color: #4CAF50;
+    color: white;
+}
+button.export:hover {
+    background-color: #45a049;
+}
+button.export:active {
+    background-color: #3e8e41;
+}
+
+button.danger {
+    background-color: #e74c3c;
+    color: white;
+}
+button.danger:hover {
+    background-color: #c0392b;
+}
+
+.error-message {
+    color: #ff6347;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    font-weight: bold;
+    background-color: #5f2d2d;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #d32f2f;
+}
+
+.editor-buttons-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+}
+
+details {
+    background-color: #2a2e34;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #61dafb;
+    padding: 5px 0;
+}
+
+details textarea {
+    width: 100%;
+    margin-top: 10px;
+    height: 150px;
+}
+
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+/* LISTE DES ÉLÉMENTS DE MENU (pour la gestion) */
+#menuItemsList {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#menuItemsList li {
+    background-color: #5a606a;
+    padding: 10px 15px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    user-select: none;
+}
+#menuItemsList li:last-child {
+    margin-bottom: 0;
+}
+#menuItemsList li:hover {
+    background-color: #6b727f;
+}
+#menuItemsList li.selected-item {
+    background-color: #3e8e41;
+    border-left: 5px solid #4CAF50;
+    padding-left: 10px;
+}
+#menuItemsList li.selected-item:hover {
+     background-color: #3e8e41;
+}
+
+#menuItemsList li .item-display {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#menuItemsList li .item-display i {
+    color: #ccc;
+    font-size: 1.1em;
+}
+
+#menuItemsList li.is-title {
+    background-color: #4a5059;
+    font-weight: bold;
+    color: #b0b0b0;
+    cursor: default;
+    border-left: none;
+}
+#menuItemsList li.is-title .item-display i {
+    display: none;
+}
+#menuItemsList li.is-title:hover {
+    background-color: #4a5059;
+}
+
+
+#menuItemsList li .item-controls button {
+    margin-left: 5px;
+    padding: 5px 8px;
+    font-size: 13px;
+    margin-top: 0;
+    background-color: #555;
+    color: white;
+}
+#menuItemsList li .item-controls button:hover {
+    background-color: #777;
+}
+
+/* SCROLLBARS */
+#menuItemsList::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+#menuItemsList::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+    background: #21252b;
+    border-radius: 4px;
+}
+
+#menuItemsList::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+    background: #61dafb;
+    border-radius: 4px;
+}
+
+#menuItemsList::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #21a1f1;
+}
+
+
+/* --- Styles du menu pour l'aperçu et l'export (ui/style.css) --- */
+/* Ces styles seront générés dynamiquement par JS en utilisant des variables CSS */
+/* NE PAS MODIFIER DIRECTEMENT ICI, MAIS VIA LES INPUTS DE L'ÉDITEUR */
+/* Ces styles sont là pour la référence visuelle dans le CSS global */
+:root {
+    --menu-main-color: #3296FF;
+    --menu-bg-color: #0A0A0A;
+    --menu-bg-opacity: 0.9;
+    --menu-text-color: #F0F0F0;
+    --menu-title-color: #61DAFB;
+    --menu-version-color: #C0C0C0;
+    --menu-font-size: 16px;
+    --menu-header-title-size: 24px;
+    --menu-border-radius: 4px;
+    --menu-border-size: 1px;
+    --menu-border-color: #ffffff;
+    --menu-shadow-color: #000000;
+    --menu-shadow-size: 20px;
+    --menu-font-family: 'Arial', sans-serif;
+    --menu-text-align: left;
+    --menu-padding: 10px;
+    --menu-item-padding: 12px;
+
+    /* Hover styles */
+    --menu-hover-bg-color: #3296FF;
+    --menu-hover-bg-opacity: 0.3;
+    --menu-hover-text-color: #FFFFFF;
+    --menu-hover-icon-color: #FFFFFF;
+    --menu-hover-border-size: 4px;
+    --menu-hover-border-color: #3296FF;
+}
+
+.menu-container {
+    position: absolute;
+    top: 50%; /* Centrage vertical */
+    left: 50%; /* Centrage horizontal */
+    transform: translate(-50%, -50%); /* Décalage pour un centrage parfait */
+    width: 290px; /* Largeur fixe pour l'aperçu */
+    background-color: rgba(var(--menu-bg-color-rgb), var(--menu-bg-opacity));
+    border: var(--menu-border-size) solid var(--menu-border-color);
+    box-shadow: 0 0 var(--menu-shadow-size) rgba(var(--menu-shadow-color-rgb), 0.8);
+    border-radius: var(--menu-border-radius);
+    color: var(--menu-text-color);
+    padding: var(--menu-padding);
+    box-sizing: border-box;
+    border-top: 2px solid rgba(var(--menu-main-color-rgb), 0.5); /* Bordure en haut avec la couleur principale */
+    font-family: var(--menu-font-family);
+    text-align: var(--menu-text-align);
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 5px;
+    background-color: rgba(var(--menu-bg-color-rgb), calc(var(--menu-bg-opacity) + 0.05));
+    cursor: text;
+    user-select: text;
+}
+
+.menu-title {
+    font-size: var(--menu-header-title-size);
+    font-weight: bold;
+    color: var(--menu-title-color);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.5px;
+}
+
+.menu-version {
+    font-size: calc(var(--menu-font-size) - 2px);
+    color: var(--menu-version-color);
+}
+
+.menu-content ul {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.menu-content li {
+    display: flex;
+    align-items: center;
+    padding: var(--menu-item-padding) 20px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-left-color 0.15s ease, color 0.15s ease, font-weight 0.15s ease;
+    border-left: var(--menu-hover-border-size) solid transparent; /* Utilisez la taille de bordure de hover pour l'alignement */
+    font-size: var(--menu-font-size);
+    font-weight: normal;
+    color: var(--menu-text-color);
+    pointer-events: auto;
+    background-color: transparent; /* Fond par défaut transparent */
+}
+
+.menu-content li.selected {
+    background-color: rgba(var(--menu-main-color-rgb), 0.6);
+    border-left-color: var(--menu-main-color);
+    color: #fff;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+}
+/* Styles d'un élément quand il est survolé ou sélectionné (pour le mode aperçu) */
+.menu-content li:hover,
+.menu-content li.selected-preview { /* Classe ajoutée pour le mode preview quand sélectionné */
+    background-color: rgba(var(--menu-hover-bg-color-rgb), var(--menu-hover-bg-opacity));
+    border-left-color: var(--menu-hover-border-color);
+    color: var(--menu-hover-text-color);
+}
+
+.menu-content li.selected-preview .item-icon {
+    color: var(--menu-hover-icon-color) !important; /* Force la couleur de l'icône au survol */
+}
+
+.menu-content li.menu-category-title {
+    font-weight: bold;
+    font-size: calc(var(--menu-font-size) - 1px);
+    padding: calc(var(--menu-item-padding) + 3px) 20px calc(var(--menu-item-padding) - 4px) 20px;
+    color: var(--menu-version-color);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    cursor: default;
+    background-color: transparent;
+    border-left: var(--menu-hover-border-size) solid transparent; /* Pour l'alignement */
+}
+
+.menu-content li.menu-category-title:hover,
+.menu-content li.menu-category-title.selected-preview {
+    background-color: transparent; /* Les titres ne changent pas de fond au survol */
+    border-left-color: transparent; /* Pas de bordure au survol pour les titres */
+    color: var(--menu-version-color); /* Couleur inchangée */
+}
+
+
+.menu-content .item-icon {
+    margin-right: 15px;
+    color: var(--menu-version-color);
+    width: 25px;
+    text-align: center;
+    font-size: calc(var(--menu-font-size) + 3px);
+}
+
+.menu-content .item-name {
+    flex-grow: 1;
+    font-size: var(--menu-font-size);
+}
+
+.menu-content .item-arrow {
+    margin-left: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: calc(var(--menu-font-size) + 2px);
+    font-weight: bold;
+}
+
+/* Personnalisation de la barre de défilement pour WebKit (Chrome, Edge, Safari) */
+.menu-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+    background: rgba(var(--menu-main-color-rgb), 0.7);
+    border-radius: 3px;
+}
+
+.menu-content::-webkit-scrollbar-thumb:hover {
+    background: var(--menu-main-color);
+}
+
+/* Styles pour la nouvelle section de génération AI */
+.ai-generation-section {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ai-generation-section h2 {
+    color: #61DAFB; /* Couleur du titre similaire à celle du menu */
+    margin-top: 0;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.ai-generation-section h2 .fas {
+    margin-right: 10px;
+    color: #FFD700; /* Une couleur or pour l'icône de magie */
+}
+
+.ai-generation-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #222;
+    color: #eee;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.ai-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.ai-buttons button {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-buttons button i {
+    margin-right: 8px;
+}
+
+.ai-buttons button.primary {
+    background-color: #4CAF50; /* Vert pour "Générer" */
+    color: white;
+}
+
+.ai-buttons button.primary:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.ai-buttons button.secondary {
+    background-color: #E91E63; /* Rose pour "Bordures Roses" */
+    color: white;
+}
+
+.ai-buttons button.secondary:hover {
+    background-color: #d81b60;
+    transform: translateY(-1px);
+}
+
+/* Vous pouvez aussi ajouter des styles spécifiques pour l'input-group dans cette section si besoin */
+.ai-generation-section .input-group label {
+    color: #bbb;
+    margin-bottom: 8px;
+}

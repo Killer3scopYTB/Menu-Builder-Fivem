@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditeur de Menu FiveM Ultime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="editor_styles.css">
+</head>
+<body>
+    <div class="editor-panel">
+        <h1>Éditeur de Menu FiveM Ultime</h1>
+
+        <div class="editor-section ai-generation-section">
+            <h2><i class="fas fa-magic"></i> Génération de Menu Assistée ("IA")</h2>
+            <div class="input-group">
+                <label for="aiPrompt">Décris le menu que tu souhaites (ex: "menu police avec véhicules et armes", "menu simple pour argent"):</label>
+                <textarea id="aiPrompt" rows="3" placeholder="Ex: Un menu pour les voitures, les armes et le staff avec des sous-menus."></textarea>
+            </div>
+            <div class="ai-buttons">
+                <button class="primary" onclick="generateMenuFromPrompt()"><i class="fas fa-robot"></i> Générer avec l'"IA"</button>
+                <button class="secondary" onclick="applyPinkBorders()"><i class="fas fa-heart"></i> Bordures Roses !</button>
+            </div>
+        </div>
+        <div class="editor-section">
+            <h2><i class="fas fa-palette"></i> Style Général du Menu</h2>
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label for="mainColor">Couleur Principale (Sélection) :</label>
+                    <input type="color" id="mainColor" value="#3296FF" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="bgColor">Couleur de Fond du Menu :</label>
+                    <input type="color" id="bgColor" value="#0A0A0A" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="bgOpacity">Opacité du Fond (%) :</label>
+                    <input type="range" id="bgOpacity" min="0" max="100" value="90" oninput="updateVisualOptions(); document.getElementById('bgOpacityValue').textContent = this.value + '%'">
+                    <span id="bgOpacityValue">90%</span>
+                </div>
+                 <div class="input-group">
+                    <label for="textColor">Couleur du Texte Général :</label>
+                    <input type="color" id="textColor" value="#F0F0F0" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="titleColor">Couleur du Titre d'Entête :</label>
+                    <input type="color" id="titleColor" value="#61DAFB" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="versionColor">Couleur de la Version :</label>
+                    <input type="color" id="versionColor" value="#C0C0C0" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="menuPadding">Rembourrage (Padding) du Menu (px) :</label>
+                    <input type="number" id="menuPadding" min="0" max="50" value="10" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="menuItemPadding">Rembourrage (Padding) des Éléments (px) :</label>
+                    <input type="number" id="menuItemPadding" min="0" max="30" value="12" oninput="updateVisualOptions()">
+                </div>
+            </div>
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label for="fontSize">Taille du Texte des Éléments (px) :</label>
+                    <input type="number" id="fontSize" min="12" max="24" value="16" oninput="updateVisualOptions()">
+                </div>
+                 <div class="input-group">
+                    <label for="headerTitleSize">Taille du Titre d'Entête (px) :</label>
+                    <input type="number" id="headerTitleSize" min="18" max="36" value="24" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="menuFont">Police de Caractères (Google Fonts) :</label>
+                    <input type="text" id="menuFont" value="Arial" placeholder="Ex: 'Roboto', sans-serif" oninput="updateVisualOptions()">
+                    <small>Ex: 'Roboto', sans-serif. Voir <a href="https://fonts.google.com/" target="_blank">Google Fonts</a></small>
+                </div>
+                <div class="input-group">
+                    <label for="textAlign">Alignement du Texte :</label>
+                    <select id="textAlign" onchange="updateVisualOptions()">
+                        <option value="left">Gauche</option>
+                        <option value="center">Centre</option>
+                        <option value="right">Droite</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-section">
+            <h2><i class="fas fa-border-all"></i> Bordures et Ombres</h2>
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label for="menuBorderRadius">Rayon des coins (px) :</label>
+                    <input type="number" id="menuBorderRadius" min="0" max="20" value="4" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="menuBorderSize">Taille de la Bordure (px) :</label>
+                    <input type="number" id="menuBorderSize" min="0" max="5" value="1" oninput="updateVisualOptions()">
+                </div>
+                 <div class="input-group">
+                    <label for="menuBorderColor">Couleur de la Bordure :</label>
+                    <input type="color" id="menuBorderColor" value="#ffffff" oninput="updateVisualOptions()">
+                </div>
+                 <div class="input-group">
+                    <label for="menuShadowColor">Couleur de l'Ombre :</label>
+                    <input type="color" id="menuShadowColor" value="#000000" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="menuShadowSize">Taille de l'Ombre (px) :</label>
+                    <input type="number" id="menuShadowSize" min="0" max="30" value="20" oninput="updateVisualOptions()">
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-section">
+            <h2><i class="fas fa-hand-pointer"></i> Styles au Survol (Hover)</h2>
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label for="hoverBgColor">Couleur de Fond au Survol :</label>
+                    <input type="color" id="hoverBgColor" value="#3296FF" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="hoverBgOpacity">Opacité du Fond au Survol (%) :</label>
+                    <input type="range" id="hoverBgOpacity" min="0" max="100" value="30" oninput="updateVisualOptions(); document.getElementById('hoverBgOpacityValue').textContent = this.value + '%'">
+                    <span id="hoverBgOpacityValue">30%</span>
+                </div>
+                <div class="input-group">
+                    <label for="hoverTextColor">Couleur du Texte au Survol :</label>
+                    <input type="color" id="hoverTextColor" value="#FFFFFF" oninput="updateVisualOptions()">
+                </div>
+                 <div class="input-group">
+                    <label for="hoverIconColor">Couleur de l'Icône au Survol :</label>
+                    <input type="color" id="hoverIconColor" value="#FFFFFF" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="hoverBorderSize">Taille Bordure Gauche au Survol (px) :</label>
+                    <input type="number" id="hoverBorderSize" min="0" max="10" value="4" oninput="updateVisualOptions()">
+                </div>
+                <div class="input-group">
+                    <label for="hoverBorderColor">Couleur Bordure Gauche au Survol :</label>
+                    <input type="color" id="hoverBorderColor" value="#3296FF" oninput="updateVisualOptions()">
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-section">
+            <h2><i class="fas fa-bars"></i> Structure du Menu</h2>
+            <div class="input-group">
+                <label for="currentMenuSelect">Menu Actuel :</label>
+                <select id="currentMenuSelect" onchange="loadMenuForEditing()"></select>
+                <button onclick="addNewMenu()"><i class="fas fa-plus"></i> Ajouter un Nouveau Menu</button>
+                <button class="danger" onclick="deleteCurrentMenu()"><i class="fas fa-trash-alt"></i> Supprimer le Menu Actuel</button>
+                <button class="success" onclick="generateBaseMenu()"><i class="fas fa-sitemap"></i> Générer Menu de Base</button>
+            </div>
+
+            <h3>Éléments du Menu (<span id="editingMenuTitle">Main Menu</span>)</h3>
+            <ul id="menuItemsList" class="sortable-list">
+                </ul>
+            <button onclick="addNewMenuItem()"><i class="fas fa-plus"></i> Ajouter un Nouvel Élément</button>
+        </div>
+
+        <div class="editor-section" id="itemConfigurationPanel" style="display: none;">
+            <h2><i class="fas fa-cogs"></i> Configuration de l'Élément <span id="selectedItemNameDisplay"></span></h2>
+            <div class="input-group">
+                <label for="itemName">Nom de l'élément :</label>
+                <input type="text" id="itemName" oninput="updateSelectedMenuItem()">
+            </div>
+            <div class="input-group">
+                <label for="itemIcon">Icône (Font Awesome, ex: 'car', 'users') :</label>
+                <input type="text" id="itemIcon" oninput="updateSelectedMenuItem()">
+                <small><a href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank">Rechercher des icônes ici</a></small>
+            </div>
+             <div class="input-group">
+                <label for="itemIconColor">Couleur de l'icône :</label>
+                <input type="color" id="itemIconColor" oninput="updateSelectedMenuItem()">
+                <small>Laisssez vide pour la couleur par défaut.</small>
+            </div>
+            <div class="input-group">
+                <label for="itemTextColor">Couleur du Texte de l'élément :</label>
+                <input type="color" id="itemTextColor" oninput="updateSelectedMenuItem()">
+                <small>Laisssez vide pour la couleur par défaut.</small>
+            </div>
+            <div class="input-group">
+                <label for="itemBgColor">Couleur de Fond de l'élément :</label>
+                <input type="color" id="itemBgColor" oninput="updateSelectedMenuItem()">
+                <small>Laisssez vide pour la couleur par défaut.</small>
+            </div>
+            <div class="input-group">
+                <label for="itemIsTitle">Est un titre de catégorie ?</label>
+                <input type="checkbox" id="itemIsTitle" onchange="toggleItemType(); updateSelectedMenuItem()">
+            </div>
+
+            <div id="itemActionOrSubMenu" class="input-group">
+                <label for="itemTypeSelect">Type de l'élément :</label>
+                <select id="itemTypeSelect" onchange="toggleActionFields(); updateSelectedMenuItem()">
+                    <option value="none">Aucune action / Juste un affichage</option>
+                    <option value="subMenu">Ouvrir un sous-menu</option>
+                    <option value="action">Exécuter une action</option>
+                </select>
+
+                <div id="subMenuSelection" style="display: none;">
+                    <label for="itemSubMenu">Sous-menu à ouvrir :</label>
+                    <select id="itemSubMenu" onchange="updateSelectedMenuItem()"></select>
+                    <small>Assurez-vous que le sous-menu existe ou créez-le.</small>
+                </div>
+
+                <div id="actionSelection" style="display: none;">
+                    <label for="itemAction">Action à exécuter :</label>
+                    <select id="itemAction" onchange="toggleActionArgs(); updateSelectedMenuItem()">
+                        <option value="">-- Sélectionner une action --</option>
+                        <option value="printMessage">Afficher un message dans le chat</option>
+                        <option value="spawnVehicle">Spawmer un véhicule</option>
+                        <option value="repairCurrentVehicle">Réparer le véhicule actuel</option>
+                        <option value="goBack">Retour au menu précédent</option>
+                        <option value="closeMenu">Fermer le menu</option>
+                        <option value="customAction">Action personnalisée (code Lua)</option>
+                    </select>
+
+                    <div id="actionArgs" style="display: none;">
+                        <label for="actionArg1">Argument 1 :</label>
+                        <input type="text" id="actionArg1" oninput="updateSelectedMenuItem()">
+                        <small id="actionArg1Hint"></small>
+                    </div>
+                     <div id="customActionCode" style="display: none;">
+                        <label for="customActionLua">Code Lua personnalisé (sera exécuté côté client) :</label>
+                        <textarea id="customActionLua" rows="5" oninput="updateSelectedMenuItem()" placeholder="function()&#10;    -- Votre code Lua ici&#10;    TriggerEvent('chat:addMessage', { args = {'^6INFO^0: Action personnalisée exécutée!'} } )&#10;end"></textarea>
+                        <small>Soyez prudent avec le code personnalisé !</small>
+                    </div>
+                </div>
+            </div>
+            <button class="danger" onclick="deleteSelectedMenuItem()"><i class="fas fa-trash"></i> Supprimer l'élément sélectionné</button>
+        </div>
+
+
+        <div id="jsonError" class="error-message" style="display: none;"></div>
+
+        <div class="editor-buttons-bottom">
+             <button onclick="togglePreviewMode()"><i class="fas fa-play-circle"></i> Mode Aperçu (touche P)</button>
+             <button class="export" onclick="exportResource()"><i class="fas fa-download"></i> Télécharger la Ressource FiveM</button>
+             <button onclick="copyCurrentJson()"><i class="fas fa-copy"></i> Copier JSON Actuel</button>
+        </div>
+
+        <details>
+            <summary>JSON Actuel (pour débogage/copie)</summary>
+            <textarea id="rawJsonEditor" style="height: 200px;"></textarea>
+            <button onclick="loadJsonFromRawEditor()">Charger ce JSON</button>
+            <button onclick="updateRawJsonEditor()">Actualiser le JSON Brut</button>
+        </details>
+
+    </div>
+
+    <div class="preview-panel">
+        <h2>Aperçu du Menu</h2>
+        <iframe id="previewIframe"></iframe>
+        <div id="previewOverlay" class="preview-overlay" style="display: none;">
+            <p>Mode Aperçu Actif (touche P)</p>
+            <p>Utilisez les flèches, Entrée, Échap pour naviguer.</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="editor_script.js"></script>
+</body>
+</html>
